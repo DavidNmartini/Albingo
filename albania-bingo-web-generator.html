@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albania Bingo Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        #bingo-card {
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #bingo-card td {
+            border: 1px solid #333;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            vertical-align: middle;
+            padding: 5px;
+            font-size: 14px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Albania Bingo Generator</h1>
+    <table id="bingo-card"></table>
+    <button onclick="generateCard()">Generate New Card</button>
+
+    <script>
+        const bingoItems = [
+            "Skeleton building", "Mushroom building", "Sweetcorn seller",
+            "American flag", "Three wheeler", "Trash collectors",
+            "Two men on scooter", "Young cyclist", "Animal on road",
+            "Animal on loose", "Bird in cage", "Police policing",
+            "Shirtless man", "Castle building", "Makeshift House",
+            "Roadside relief", "Honey seller", "Roadside entrepreneur",
+            "Ancient Greek building", "Undrivable vehicle", "Tractor",
+            "Non-existent road", "Smoking driver", "Potential gangster car",
+            "Aggressive driving", "Horse", "Stray dog", "Rare license plate",
+            "Hitchhikers", "Communist car", "Footbridge people",
+            "Aggressive beeping", "Argument", "Eagle statue",
+            "Kids in danger", "Dua Lipa lookalike", "Roadside memorial",
+            "Albanian goth", "American tourist", "Minaret",
+            "Disused railway", "Castle", "Car up high", "Plane in sky",
+            "Overstuffed vehicle", "Dangerous wiring", "Dead animal",
+            "Handshake/hi five", "Bad parking", "Lonely bird"
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function generateCard() {
+            const cardSize = 5;
+            const card = document.getElementById('bingo-card');
+            card.innerHTML = '';
+
+            shuffleArray(bingoItems);
+            const selectedItems = bingoItems.slice(0, cardSize * cardSize);
+
+            for (let i = 0; i < cardSize; i++) {
+                const row = card.insertRow();
+                for (let j = 0; j < cardSize; j++) {
+                    const cell = row.insertCell();
+                    cell.textContent = selectedItems[i * cardSize + j];
+                }
+            }
+        }
+
+        // Generate initial card
+        generateCard();
+    </script>
+</body>
+</html>
