@@ -12,63 +12,79 @@
             align-items: center;
             padding: 20px;
             background-color: #f0f0f0;
+            margin: 0;
         }
         h1 {
             color: #333;
+            text-align: center;
         }
         #bingo-card {
             border-collapse: collapse;
             margin-top: 20px;
             background-color: white;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
         }
         #bingo-card td {
             border: 1px solid #333;
-            width: 100px;
-            height: 100px;
+            width: 20%;
+            aspect-ratio: 1 / 1;
             text-align: center;
             vertical-align: middle;
             padding: 5px;
             font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        #bingo-card td.clicked {
+            background-color: #E41E20; /* Albanian flag red */
+            color: white;
         }
         button {
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #4CAF50;
+            background-color: #E41E20; /* Albanian flag red */
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #C41A1C; /* Slightly darker red for hover state */
+        }
+        @media (max-width: 600px) {
+            #bingo-card td {
+                font-size: 12px;
+                padding: 2px;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Albania Bingo Generator</h1>
     <table id="bingo-card"></table>
-    <button onclick="generateCard()">Generate New Card</button>
+    <button onclick="confirmNewCard()">Generate New Card</button>
 
     <script>
         const bingoItems = [
             "Skeleton building", "Mushroom building", "Sweetcorn seller",
             "American flag", "Three wheeler", "Trash collectors",
-            "Two men on scooter", "Young cyclist", "Animal on road",
-            "Animal on the loose", "Bird in cage", "Police policing",
-            "Shirtless man", "Castle", "Makeshift House",
+            "Two men on scooter", "Under 60 cyclist", "Animal on road",
+            "Animal on loose", "Bird in cage", "Police policing",
+            "Shirtless man", "Makeshift House",
             "Roadside relief", "Honey seller", "Roadside entrepreneur",
-            "Ancient Greek building", "Undrivable vehicle", "Tractor",
-            "Non-existent road", "Smoking driver", "How can they afford that car?",
+            "Extravagant building", "Undrivable vehicle", "Tractor",
+            "Non-existent road", "Smoking driver", "How did they afford that car?",
             "Aggressive driving", "Horse", "Stray dog", "Rare license plate",
             "Hitchhikers", "Communist car", "Footbridge people",
             "Aggressive beeping", "Argument", "Eagle statue",
             "Kid where they shouldn't be", "Dua Lipa lookalike", "Roadside memorial",
             "Albanian goth", "American tourist", "Minaret",
-            "Disused railway", "Car up high", "Plane in sky",
-            "Overstuffed vehicle", "Dangerous wiring", "Carcass",
-            "Hands touching", "You can't park there sir", "Lonely bird"
+            "Disused railway", "Castle", "Car up high",
+            "Overstuffed vehicle", "Dangerous electronics", "Carcass",
+            "Hands touching", "Bad parking", "Lonely bird"
         ];
 
         function shuffleArray(array) {
@@ -91,7 +107,16 @@
                 for (let j = 0; j < cardSize; j++) {
                     const cell = row.insertCell();
                     cell.textContent = selectedItems[i * cardSize + j];
+                    cell.onclick = function() {
+                        this.classList.toggle('clicked');
+                    };
                 }
+            }
+        }
+
+        function confirmNewCard() {
+            if (confirm("Are you sure you want to generate a new card? This will reset the game.")) {
+                generateCard();
             }
         }
 
